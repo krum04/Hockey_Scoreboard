@@ -5,13 +5,27 @@ import machine
 from time import sleep
 from digits import digitRef
 
-ledPin = 0
+ledPin = 2
 pixelCount = 27
 
-np = neopixel.NeoPixel(machine.Pin(ledPin)), pixelCount)
+np = neopixel.NeoPixel(machine.Pin(ledPin), pixelCount)
+np2 = neopixel.NeoPixel(machine.Pin(14), pixelCount)
 
-for n in range (19):
-    for i in digitRef[n]:
-        np[i] = (255,255,255) 
-    np.write()
-    sleep(1)
+for i in range (2):
+    for n in range (20):
+        for i in digitRef[n]:
+            np[i] = (255,0,0) 
+        np.write()
+        sleep(.1)
+        for i in range(20):
+            np[i] = (0,0,0)
+
+for i in range (2):
+    for n in range (20):
+        for i in digitRef[n]:
+            np2[i] = (255,0,0) 
+        np2.write()
+        sleep(.1)
+        for i in range(20):
+            np2[i] = (0,0,0)
+        

@@ -17,10 +17,7 @@ class ScoreDisplay(object):
         self.score = 0
         self.pin = pin
         self.np = neopixel.NeoPixel(machine.Pin(self.pin), numLeds)
-
-        for n in range(20):
-            self.np[n] = (255, 0, 255)
-        self.np.write()
+        self.numLeds = numLeds
 
     # References the included digit module that contains display list for each number
     def increase_score(self):
@@ -28,32 +25,52 @@ class ScoreDisplay(object):
         if self.score == 20:
             self.score = 0
         for n in digitRef[self.score]:
-            self.np[n] = (255, 0, 255)
+            self.np[n] = (255, 255, 255)
         self.np.write()
         print('{} Score: {}'.format(self.team, self.score))
+    
+    # Turn off all leds
+    def clear_leds(self):
+        for i in range(27):
+            self.np[i] = (0,0,0)
+        self.np.write()
+
+  
+  
+
+
 
 
 # Create an object for each team and pass in our arguments
-home = ScoreDisplay('Home', 0, 27)
+home = ScoreDisplay('Home', 14, 27)
 away = ScoreDisplay('Away', 2, 27)
 
 flag = True
 
 # Monitor button change state and increse score acordingly
+home.clear_leds()
+away.clear_leds()
+
 while flag:
     homeFirst = homeButton.value()
-    sleep(0.005)
+    #sleep(0.005)
     homeSecond = homeButton.value()
-    if homeFirst and not homeSecond:
+    if homeFirst == False:
+        
+        home.clear_leds()
         home.increase_score()
+        sleep(.5)
     else:
         pass
 
     awayFirst = awayButton.value()
-    sleep(0.005)
+    #sleep(0.005)
     awaySecond = awayButton.value()
-    if awayFirst and not awaySecond:
+    if awayFirst == False:
+        
+        away.clear_leds()
         away.increase_score()
+        sleep(.5)
     else:
         pass
 
