@@ -8,7 +8,8 @@ homeButton = machine.Pin(5, machine.Pin.IN, machine.Pin.PULL_UP)
 awayButton = machine.Pin(4, machine.Pin.IN, machine.Pin.PULL_UP)
 
 # ScoreDisplay object will be created for each set of scores
-# Will take team, pin number driving leds, and the number of leds 
+# Will take team, pin number driving leds, and the number of leds
+
 
 class ScoreDisplay(object):
     def __init__(self, team, pin, numLeds):
@@ -31,12 +32,15 @@ class ScoreDisplay(object):
         self.np.write()
         print('{} Score: {}'.format(self.team, self.score))
 
+
 # Create an object for each team and pass in our arguments
 home = ScoreDisplay('Home', 0, 27)
 away = ScoreDisplay('Away', 2, 27)
 
+flag = True
+
 # Monitor button change state and increse score acordingly
-while True:
+while flag:
     homeFirst = homeButton.value()
     sleep(0.005)
     homeSecond = homeButton.value()
@@ -53,5 +57,5 @@ while True:
     else:
         pass
 
-
-
+    if not homeButton.value() and not awayButton.value():
+        flag = False
