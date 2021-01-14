@@ -10,7 +10,6 @@ awayButton = machine.Pin(4, machine.Pin.IN, machine.Pin.PULL_UP)
 # ScoreDisplay object will be created for each set of scores
 # Will take team, pin number driving leds, and the number of leds
 
-
 class ScoreDisplay(object):
     def __init__(self, team, pin, numLeds):
         self.team = team
@@ -34,12 +33,6 @@ class ScoreDisplay(object):
         for i in range(27):
             self.np[i] = (0,0,0)
         self.np.write()
-
-  
-  
-
-
-
 
 # Create an object for each team and pass in our arguments
 home = ScoreDisplay('Home', 14, 27)
